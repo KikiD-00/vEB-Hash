@@ -1,4 +1,3 @@
-
 class vEB:
     def __init__(self, universe_size=2**32):
         self.universe_size = universe_size
@@ -10,8 +9,8 @@ class vEB:
             self.summary = None
             self.cluster = None
         else:
-            total_bits = universe_size.bit_length() - 1  # log2(u)
-            half = total_bits // 2  # Inteiro! Não precisa importar nada
+            total_bits = universe_size.bit_length() - 1  
+            half = total_bits // 2  
 
             self.lower_sqrt = 1 << half
             self.upper_sqrt = 1 << (total_bits - half)
@@ -179,30 +178,9 @@ class vEB:
                             self.max = self.min
                         else:
                             self.max = self.index(summary_max, self.cluster[summary_max].maximum())
-            elif x == self.max:
-                self.max = self.index(high, self.cluster[high].maximum())
+                elif x == self.max:
+                    self.max = self.index(high, self.cluster[high].maximum())
                    
-        self.update_min_max()
-    
-    def update_min_max(self):
-        
-        mins = []
-        maxs = []
-        for k in range(self.upper_sqrt):
-            node = self.cluster[k]
-            if node is not None and node.min is not None:
-                mins.append(self.index(k, node.min))
-                maxs.append(self.index(k, node.max))
-
-        if mins:
-            self.min = min(mins)
-        else:
-            self.min = None
-
-        if maxs:
-            self.max = max(maxs)
-        else:
-            self.max = None
 
 class HashTable:
     def __init__(self, initial_capacity=2):
@@ -261,22 +239,6 @@ class HashTable:
             if entry is not None:
                 self.insert(entry[0], entry[1])
 
-    def _update_min_max(self):
-        values = []
-        for entry in self.table:
-            if entry is not None:
-                key, cluster = entry
-                if isinstance(cluster, vEB) and cluster.min is not None:
-                    min_value = self.index(key, cluster.min)
-                    max_value = self.index(key, cluster.max)
-                    values.append(min_value)
-                    values.append(max_value)
-        if values:
-            self.min = min(values)
-            self.max = max(values)
-        else:
-            self.min = None
-            self.max = None
 
     def get(self, key):
         index = self._hash(key)
@@ -360,7 +322,7 @@ def collect_cluster_values(veb, high):
     if cluster is None or cluster.min is None:
         return []
 
-    # Recursivamente coleta valores do cluster
+  
     lows = collect_values(cluster)
     return [veb.index(high, low) for low in lows]
    
@@ -417,7 +379,6 @@ if __name__ == "__main__":
     print("Caminho absoluto esperado:", os.path.abspath("entrada.txt"))
     print("Existe?", os.path.exists("entrada.txt"))
     
-
 
     
    
