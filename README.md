@@ -28,6 +28,7 @@ No repositório, os principais arquivos são:
 
 
  3. Rode o código
+
 Coloque no terminal:
 
 python Arvore.py
