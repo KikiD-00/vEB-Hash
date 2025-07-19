@@ -28,9 +28,15 @@ No repositório, os principais arquivos são:
 
 
  3. Rode o código
- Entre na pasta e coloque no terminal:
+Coloque no terminal:
 
- Trabalho Estrutura de dados van emde boas/Arvore.py
+python Arvore.py
+
+ou 
+
+vEB-Hash/Arvore.py
+
+ 
 
 (Insira os valores em entrada.txt e confira os resultados em saida.txt)
 
