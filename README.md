@@ -571,5 +571,7 @@ if __name__ == "__main__":
 
 <h3>Referências </h3> 
 Cormen T.H [et al.]; Algoritmos: Teoria e Prática, 2009.
+
 https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/resources/mit6_851s12_l11/
+
 https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-4-notes/
