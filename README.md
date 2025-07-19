@@ -1,5 +1,7 @@
 # vEB-Hash
 Trabalho de estrutura de dados árvore Van Emde Boas com Hash table
+
+
 Kiara Duarte (584248)
 
 <h1>Requisitos</h1>
@@ -19,13 +21,14 @@ Git instalado (opcional, mas facilita o processo)
 
 2. Verifique os arquivos
 No repositório, os principais arquivos são:
--hashTable.py → implementação da tabela hash
--vEB.py → implementação da árvore van Emde Boas
--main.py → código principal com testes
+-Arvore.py
+-entrada.txt
+-saida.txt
 
 
  4. Rode o código
- Entre na pasta e coloque no terminal
+ Entre na pasta e coloque no terminal:
+
  Trabalho Estrutura de dados van emde boas/Arvore.py
 
 Insira os valores em entrada.txt e confira os resultados em saida.txt
