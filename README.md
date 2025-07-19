@@ -1,20 +1,48 @@
 # vEB-Hash
 Trabalho de estrutura de dados árvore Van Emde Boas com Hash table
+Kiara Duarte (584248)
+
+<h1>Requisitos</h1>
+Antes de tudo, verifique se você tem:
+
+Python 3.8 ou superior instalado
+
+Um terminal (Linux/macOS) ou PowerShell/CMD (Windows)
+
+Git instalado (opcional, mas facilita o processo)
+
 <h1>Trabalho de Estrutura de dados</h1>
+
+<h1>Como Rodar</h1>
+1. Clone o repositório
+
+
+2. Verifique os arquivos
+No repositório, os principais arquivos são:
+-hashTable.py → implementação da tabela hash
+-vEB.py → implementação da árvore van Emde Boas
+-main.py → código principal com testes
+
+
+ 4. Rode o código
+ Entre na pasta e coloque no terminal
+ Trabalho Estrutura de dados van emde boas/Arvore.py
+
+Insira os valores em entrada.txt e confira os resultados em saida.txt
 
 <h3>Contexto:</h3> 
 
 
-Como pedido no enuncido o código implementa uma árvore Van Emde Boas, de 32 bits, com tabela de dispersão, fazendo as operações de: Predescessor; Sucessor; Inserção e Remoção, e também table doubling/halving. Para isso, foram usadas como base as anotações em sala de aula, o livro "Algoritmos: Teoria e Prática" e as anotações dos cursos "Advanced Data Structures" e "Design and Analysis of Algorithms" do MIT.
+Como pedido no enuncido, o código implementa uma árvore Van Emde Boas, de 32 bits, com tabela de dispersão, fazendo as operações de: Predescessor; Sucessor; Inserção e Remoção, e também table doubling/halving. Para isso, foram usadas como base as anotações em sala de aula, o livro "Algoritmos: Teoria e Prática" e as anotações dos cursos "Advanced Data Structures" e "Design and Analysis of Algorithms", ambos do MIT.
 
 
 <h3>Van Emde Boas</h3> 
 
 
-A Van Emde Boas é uma árvore que suporta operações de fila de prioridades como Remoção e Inserção, além de outras operações como sucessor e predescessor em, pior caso, O(lg lg n) (CORMEN et al., 2009). Uma de suas principais caractéristicas são suas chaves que recebem apenas valores inteiros, universo em potência de 2 e sua estrutura recursiva, com clusters e sumário  Para economizar espaço, uma boa alternativa é colocar uma tabela de dispersão no lugar do cluster. 
+A Van Emde Boas é uma árvore que suporta operações de fila de prioridades como Remoção e Inserção, além de outras operações como sucessor e predescessor em, pior caso, O(lg lg n) (CORMEN et al., 2009). Uma de suas principais caractéristicas são suas chaves que recebem apenas valores inteiros, universo em potência de 2 e sua estrutura recursiva, com clusters e sumário. Para economizar espaço, uma boa alternativa é colocar uma tabela de dispersão no lugar do cluster. 
 
 
-Dessa forma, o código inicia criando uma classe chamada vEB, que cotém todas as operações funções necessárias para o funcionamento de uma Van Emde Boas. A primeira função da classe inicializa a VEB, estabelecendo um universo de tamanho 32 bits e o valor mínimo e máximo, dentro da VEB. Essa função também garante que a capacidade da árvore é uma potência de 2 e que ela começará vazia. Como a Van Emde Boas é uma estrutura recursiva, é necessário criar um caso base. Logo se o universo for muito pequeno (<=2) não haverá a necessidade nem de clusters nem de resumo, se não, ela reduzirá o tamanho do universo pela raiz quadrada em cada nível de recursão, assim como explicado por Cormen et al. (2009), e os clusters passão a existir, e o resumo será usado para resumir quais clusters estão ocupados, porém nesse código o cluster é uma tabela de dispersão. Todavia, antes de fazer isso, o código também conta o número total de bits e os reduz pela metade para garantir que os clusters não sejam muito grandes.
+Dessa forma, o código inicia criando uma classe chamada vEB, que cotém todas as operações e funções necessárias para o funcionamento de uma Van Emde Boas. A primeira função da classe inicializa a VEB, estabelecendo um universo de tamanho 32 bits e os valores mínimo e máximo, dentro da VEB. Essa função também garante que a capacidade da árvore é uma potência de 2 e que ela começará vazia. Como a Van Emde Boas é uma estrutura recursiva, é necessário criar um caso base. Logo, se o universo for muito pequeno (<=2), não haverá a necessidade nem de clusters nem de resumo. Se não, ela reduzirá o tamanho do universo pela raiz quadrada em cada nível de recursão, assim como explicado por Cormen et al. (2009), e os clusters passarão a existir, e o resumo será usado para resumir quais clusters estão ocupados. Porém, neste código, o cluster é uma tabela de dispersão. Todavia, antes de fazer isso, o código também conta o número total de bits e os reduz pela metade para garantir que os clusters não sejam muito grandes.
 
 
 ```python
@@ -41,7 +69,7 @@ class vEB:
 ```
 
 
-As quatro funções seguintes são escenciais para o funcionamento da estrutura da árvore, em geral. A primeira função conta quantos bits são necessários para representar o valor de x em binário. Por meio de um laço que se repete enquanto x for maior do que 0, os bits vão sendo contados e, a cada shift, o bit menos significativo é descatado até chegar em 0, então a função sai do laço e retorna bit lengh. Como explicado por Cormen et al. (2009), as funções high, low e index ajudaram a manter a recursividade da estrutura. Enquanto a função high retorna o número do grupo onde x está localizado, a função low retorna a posição do x dentro do grupo e a função index retorna o valor original de x, utilizando as funções anteriores.
+As quatro funções seguintes são escenciais para o funcionamento da estrutura da árvore, em geral. A primeira função conta quantos bits são necessários para representar o valor de x em binário. Por meio de um laço que se repete enquanto x for maior do que 0, os bits vão sendo contados e, a cada shift, o bit menos significativo é descartado, até chegar em 0. Então, a função sai do laço e retorna bit length. Como explicado por Cormen et al. (2009), as funções high, low e index ajudam a manter a recursividade da estrutura. Enquanto a função high retorna o número do grupo onde x está localizado, a função low retorna a posição do x dentro do grupo e a função index retorna o valor original de x, utilizando as funções anteriores.
 
 
 ```python
@@ -65,7 +93,7 @@ As quatro funções seguintes são escenciais para o funcionamento da estrutura 
 ```
 
 
-As próximas duas funções são usadas para encontrar o valor mínimo e máximo da árvore
+As próximas duas funções são usadas para encontrar os valores mínimo e máximo da árvore.
 
 
 ```python
@@ -78,10 +106,10 @@ As próximas duas funções são usadas para encontrar o valor mínimo e máximo
 
 ```
 
-Após isso usamos a função member para determinar se o valor x está presente na árvore. Por isso, primeiramente é preciso verificar se a árvore está vazia, se ela estiver, significa que nada está presente na árvore, então retorna False. Caso o contrário, verifica-se se o x é igual ao valor minímo ou máximo, se for, então x está presente na árvore e retornará true. De outro modo, passamos para o caso base que verifica se o universo só tem 2 elementos, se esse for o caso significa que o x realmente não está presente na árvore, retornando falso. Mas se x não for um caso base nem o mínimo e o máximo, é retornado o resultado da chamada recursiva. Porém, para que a função funcione sem erros é nescessário dividir a chamada recursiva em partes, verificado primeiro se o cluster está vazio, para apenas depois retornar. 
+Após isso, usamos a função member para determinar se o valor x está presente na árvore. Por isso, primeiramente é preciso verificar se a árvore está vazia. Se ela estiver, significa que nada está presente na árvore, então retornará False. Caso contrário, verifica-se se o x é igual ao valor minímo ou máximo. Se for, então x está presente na árvore e retornará true. De outro modo, passamos para o caso base que verifica se o universo só tem 2 elementos. Se esse for o caso, significa que o x realmente não está presente na árvore, retornando False. Mas, se x não for um caso base, nem o mínimo e nem o máximo, é retornado o resultado da chamada recursiva. Porém, para que a função funcione sem erros, é nescessário dividir a chamada recursiva em partes, verificando primeiro se o cluster está vazio, para apenas depois retornar. 
 
 
-Em geral, no python, esse tipo de verificação "if alguma coisa is None" é necessária para que o código funcione da manira correta, por isso ela sempre aparece ao longo do código.
+Em geral, no python, esse tipo de verificação "if alguma coisa is None" é necessária para que o código funcione da maneira correta. Por isso, ela sempre aparece ao longo do código.
 
 
 ```python
@@ -106,7 +134,7 @@ Em geral, no python, esse tipo de verificação "if alguma coisa is None" é nec
 <h4>Sucessor</h4> 
 
 
-A função seguinte implementa a operação de sucessor. O caso base, novamente, verifica se o universo só tem 2 elementos, sendo esse o caso, só existem duas possibilidades, x é 0 e seu sucessor é 1 ou x é 1 e seu sucessor não existe. Se não for o caso base, verifica-se se o x é menor que o menor elemento da árvore, se for, ele é o sucessor de x e a função retorna o elemento minínimo. Se não, já sabendo que o universo é maior que 2 e que x não é menor que valor minímo, faz-se a verificação se x é menor que o valor máximo de seu cluster, dessa forma é possível confirmar se o sucessor de x está dentro do mesmo cluster ou não. Se o sucessor estiver no mesmo cluster, ele retornará o sucessor de x, se não, isso quer dizer que x é o valor máximo no cluster, logo será necessário procurar o seu sucessor em outro cluster, retornando, por fim o sucessor de x.
+A função seguinte implementa a operação de sucessor. O caso base, novamente, verifica se o universo só tem 2 elementos. Sendo esse o caso, só existem duas possibilidades: x é 0 e seu sucessor é 1 ou x é 1 e seu sucessor não existe. Se não for o caso base, verifica-se se o x é menor que o menor elemento da árvore. Se for, ele é o sucessor de x e a função retorna o elemento minínimo. Se não, já sabendo que o universo é maior que 2 e que x não é menor que o valor minímo, faz-se a verificação se x é menor que o valor máximo de seu cluster. Dessa forma, é possível confirmar se o sucessor de x está dentro do mesmo cluster ou não. Se o sucessor estiver no mesmo cluster, ele retornará o sucessor de x. Se não, isso quer dizer que x é o valor máximo no cluster. Logo, será necessário procurar o seu sucessor em outro cluster, retornando, por fim, o sucessor de x.
 
 
 ```python
@@ -139,7 +167,7 @@ A função seguinte implementa a operação de sucessor. O caso base, novamente,
 <h4>Predecessor</h4> 
 
 
-A função de predecessor é quase uma versão espelhada da função de sucessor, porém com um caso a mais. Assim como em sucessor,fazemos a verificação se o universo é de tamanho 2, sendo esse o caso, novamente nos deparamos com duas possibilidades: x = 1 e predescessor = 0, ou x = 0 e predecessor nil. Dessa vez, em vez de verificarmos se x < self.min, verificamos se x é maior que o maior elemento da árvore (self.max), se for, seu predecessor será o maior elemento e a função retornará self.max. Se não, a função verifica se x é maior que o valor mínimo de seu cluster, se esse for o caso, a função retorna seu predecessor. Caso o contrário, enquanto na outra função partia-se diretamente para a busca em outro cluster, nessa função é necessário checar se existem outros clusters, pois, caso não existam outros clusters, (considerando que o valor mínimo da VEB é armazenado separadamente) a função verificará se esse valor mínimo existe e se x é maior que ele. Se sim, ela retornará o valor mínimo da árvore. Se não, o predecessor não existe. Porém, se existirem outros clusters, a função, enfim, partirá para a busca em clusters anteriores, retornando o predecessor de x.
+A função de predecessor é quase uma versão espelhada da função de sucessor, porém com um caso a mais. Assim como em sucessor, fazemos a verificação se o universo é de tamanho 2. Sendo esse o caso, novamente nos deparamos com duas possibilidades: x = 1 e predescessor = 0, ou x = 0 e predecessor nil. Dessa vez, em vez de verificarmos se x < self.min, verificamos se x é maior que o maior elemento da árvore (self.max). Se for, seu predecessor será o maior elemento e a função retornará self.max. Se não, a função verifica se x é maior que o valor mínimo de seu cluster. Se esse for o caso, a função retorna seu predecessor. Caso contrário, enquanto na outra função partia-se diretamente para a busca em outro cluster, nessa função, é necessário checar se existem outros clusters, pois, caso não existam outros clusters (considerando que o valor mínimo da VEB é armazenado separadamente), a função verificará se esse valor mínimo existe e se x é maior que ele. Se sim, ela retornará o valor mínimo da árvore. Se não, o predecessor não existe. Porém, se existirem outros clusters, a função, enfim, partirá para a busca em clusters anteriores, retornando o predecessor de x.
 
 
 ```python
@@ -179,9 +207,9 @@ A função de predecessor é quase uma versão espelhada da função de sucessor
 ```
 
 
-<h4>Inserção</h4> 
+<h4>Inclusão</h4> 
 
-A próxima função realiza a operação de inserção. Para a inserção é importante ressaltar que essa função fará apenas uma chamada recursiva. Por isso, primeiramente verifica-se se a árvore está vazia, se sim, x passará a ser tanto o valor mínimo quanto o valor máximo da árvore, tendo em vista que x é o único valor na árvore. Caso não seja uma árvore vazia,verificamos se x é menor que o valor minímo da árvore, se sim, x troca de lucar com min (essa troca é feita para que x passe a ser o novo min sem que o min original seja perdido). Além disso, verificamos se x é maior que o valor máximo da árvore, se sim, atualizamos o valor máximo. Por fim, se o universo for <= 2, a função retorna pois não há clusters nem sumário. Se nenhum desses for o caso de x, levando em consideração que a árvore não está vazia e que x está em um cluster, (como o resumo só armazena clusters não) verificamos se o cluster de x está vazio, se estiver inserimos x, atualizando o resumo. Se não, faremos, enfirm a chamada recursiva inserindo x em seu cluster. 
+A próxima função realiza a operação de inclusão. Para a inclusão, é importante ressaltar que essa função fará apenas uma chamada recursiva. Por isso, primeiramente verifica-se se a árvore está vazia. Se sim, x passará a ser tanto o valor mínimo quanto o valor máximo da árvore, tendo em vista que x é o único valor na árvore. Caso não seja uma árvore vazia, verificamos se x é menor que o valor minímo da árvore. Se sim, x troca de lucar com min (essa troca é feita para que x passe a ser o novo min sem que o min original seja perdido). Além disso, verificamos se x é maior que o valor máximo da árvore, se sim, atualizamos o valor máximo. Por fim, se o universo for <= 2, a função retorna, pois não há clusters nem sumário. Se nenhum desses for o caso de x, levando em consideração que a árvore não está vazia e que x está em um cluster (como o resumo só armazena clusters não vazios), verificamos se o cluster de x está vazio. Se estiver, inserimos x, atualizando o resumo. Se não, faremos, enfim, a chamada recursiva, inserindo x em seu cluster. 
 
 ```python
 
@@ -216,7 +244,7 @@ A próxima função realiza a operação de inserção. Para a inserção é imp
 
 <h4>Remoção</h4>
 
-A função a seguir é realiza a operação de remoção da árvore VEB. Enquanto a inserção verifica primeiro se a árvore está vazia, a remoção, por sua vez, vai verificar primeiro se a árvore tem apenas 1 elemento. Se esse for o caso, como x é tanto min, quanto max (assim como na inserção), definimos min e max como nil, eliminando x. Partindo para o caso base, se existirem apenas 2 elementos, nos deparamos com duas possibilidades: se x for o valor mínimo (nesse caso, 0), removemos o x e o min passa a ser 1; se não, removemos x e o máximo e o mínimo passam a ser a mesma coisa. Então a função retorna o elemento que sobrou. Se não, tendo em mente que o universo possui mais de dois elementos, primeiramente, verificamos se x é o valor minímo. Se sim (como mínimo fica armazenado fora do resumo), buscaremos pelo primeiro cluster no resumo e pelo menor valor desse cluster para substituir o mínimo, que foi eliminado e atualizamos o valor minímo. Após isso, a remoção de x começa, de fato, independente de x ser o valor original passado para a árvore ou o novo mínimo. Então se o cluster não for vazio a função remove x do cluster. Se o cluster de x se tornar vazio após essa remoção, ela também remove o cluster do resumo. Caso o valor eliminado (x) tenha sido o valor máximo, se não existir sumário, restará apenas o valor minímo na estrutura, se não, a função procura pelo maior cluster do sumário e o maior valor dentro desse cluster para atualizar max. Se o cluster não ficou vazio após a remoção, mas o x era o valor máximo, a função atualiza o valor máximo.
+A função a seguir realiza a operação de remoção da árvore VEB. Enquanto a inserção verifica primeiro se a árvore está vazia, a remoção, por sua vez, vai verificar primeiro se a árvore tem apenas 1 elemento. Se esse for o caso, como x é tanto min quanto max (assim como na inserção), definimos min e max como nil, eliminando x. Partindo para o caso base, se existirem apenas 2 elementos, nos deparamos com duas possibilidades: se x for o valor mínimo (nesse caso, 0), removemos o x e o min passa a ser 1; se não, removemos x e o máximo e o mínimo passam a ser a mesma coisa. Então, a função retorna o elemento que sobrou. Se não, tendo em mente que o universo possui mais de dois elementos, primeiramente verificamos se x é o valor minímo. Se sim (como mínimo fica armazenado fora do resumo), buscaremos pelo primeiro cluster no resumo e pelo menor valor desse cluster para substituir o mínimo, que foi eliminado, e atualizamos o valor minímo. Após isso, a remoção de x começa, de fato, independente de x ser o valor original passado para a árvore ou o novo mínimo. Então, se o cluster não for vazio, a função remove x do cluster. Se o cluster de x se tornar vazio após essa remoção, ela também remove o cluster do resumo. Caso o valor eliminado (x) tenha sido o valor máximo, se não existir sumário, restará apenas o valor minímo na estrutura. Se não, a função procura pelo maior cluster do sumário e o maior valor dentro desse cluster, para atualizar max. Se o cluster não ficou vazio após a remoção, mas o x era o valor máximo, a função atualiza o valor máximo.
 
 ```python
 
@@ -253,14 +281,14 @@ A função a seguir é realiza a operação de remoção da árvore VEB. Enquant
                    
 ```
 
-Dessa forma concluímos a estrutura Van Emde Boas e partimos para a segunda parte do código, que é a tabela de dispersão.
+Dessa forma, concluímos a estrutura Van Emde Boas e partimos para a segunda parte do código, que é a tabela de dispersão.
 
 <h3>Tabela de dispersão</h3> 
 
 
-A tabela hash ou tabela de dispersão é considerada uma tabela eficiente para implementar dicionários, pesquisando elementos em tempo médio O(1), se estiver sob condições razoáveis (Cormen et al., 2009). Para este trabalho, foi proposto que a tabela de dispersão, fique no lugar do vertor de clustes da VEB tradicional, como forma de economizar espaço. 
+A tabela hash ou tabela de dispersão é considerada uma tabela eficiente para implementar dicionários, pesquisando elementos em tempo médio O(1), se estiver sob condições razoáveis (Cormen et al., 2009). Para este trabalho, foi proposto que a tabela de dispersão fique no lugar do vetor de clustes da VEB tradicional, como forma de economizar espaço. 
 
-Dessa forma, começamos criando a classe HashTable, que será chamada na primeira função mostrada no trabalho. Nessa função, estabelecemos a capacidade inicial da tabela, criamos uma tabela vazia e inicializamos um contador do tamano da tabela que começa com 0 (mais adiante, isso ajudará com table halving/doubling). Por fim definimos o valor mínimo e máximo da tabela (essa definição é importante para as operações da VEB).
+Assim, começamos criando a classe HashTable, que será chamada na primeira função mostrada no trabalho. Nessa função, estabelecemos a capacidade inicial da tabela, criamos uma tabela vazia e inicializamos um contador do tamanho da tabela, que começa com 0 (mais adiante, isso ajudará com table halving/doubling). Por fim, definimos os valores mínimo e máximo da tabela (essa definição é importante para as operações da VEB).
 
 
 ```python
@@ -276,7 +304,7 @@ class HashTable:
 ```
 
 
-Para este trabalho, optei por implementar a função hash de indereçamento aberto com sodagem linear. A escolha desse método se dá principalmente devido ao tratamento de colisões, pois, como explicado por Cormen et al.(2009), o endereçamento aberto possibilita uma maior quantidade de posições na tabela, devido à ausência de ponteiros, e consequêntimente diminui a possibilidade de colisões. Primeiro, começaremos implementando uma função de dispersão. Para valores inteiros começamos implementado o método da divisão h(k) = k mod m que retorna o módulo da divisão da chave pelo tamanho da tabela. Para strings procuramos aplicar a mesma função, porém como um string não é um número natural, primeiramente precisamos transformar a string em um número. Para isso, a função usa um laço que identifica o índice da letra na sting e e seu caractere correspondete, calculando a soma dos respectivos valores ASCII, para, enfim retornar módulo da divisão dessa soma pelo tamanho da tabela.
+Para este trabalho, optamos por implementar a função hash de endereçamento aberto com sodagem linear. A escolha desse método se dá principalmente devido ao tratamento de colisões, pois, como explicado por Cormen et al.(2009), o endereçamento aberto possibilita uma maior quantidade de posições na tabela, devido à ausência de ponteiros, e consequentemente diminui a possibilidade de colisões. Primeiro, começaremos implementando uma função de dispersão. Para valores inteiros, começamos implementando o método da divisão h(k) = k mod m, que retorna o módulo da divisão da chave pelo tamanho da tabela. Para strings, procuramos aplicar a mesma função, porém como um string não é um número natural, primeiramente precisamos transformar a string em um número. Para isso, a função usa um laço que identifica o índice da letra na sting e e seu caractere correspondete, calculando a soma dos respectivos valores ASCII, para, enfim, retornar módulo da divisão dessa soma pelo tamanho da tabela.
 
 
 ```python
@@ -294,7 +322,7 @@ Para este trabalho, optei por implementar a função hash de indereçamento aber
 
 ```
 
-A próxima função é utilizada para fazer a inclusão na tabela. Porém, antes de começar a inclusão faremos o table doubling. Para isso a função verifica se a tabela está cheia, se sim, ela dobra o tamando da tabela e recalcula o indíce da chave. Se a tabela não estiver cheia, ela apenas calcula o índice da chave. Então partiremos para o tratamento das colisões utilizando a função "h(k,i)=(h'(k) + i) mod m" para encontrar uma posição para nova chave. Para isso verificamos se o indíce dado pela função está vazio, se não estiver, inserimos a chave e atualizamos o contador do tamanho da tabela e retornamos, de outro modo (posição ocupada) partiremos para o próxima posição e assim por diante. 
+A próxima função é utilizada para fazer a inclusão na tabela. Porém, antes de começar a inclusão, faremos o table doubling. Para isso, a função verifica se a tabela está cheia. Se sim, ela dobra o tamando da tabela e recalcula o indíce da chave. Se a tabela não estiver cheia, ela apenas calcula o índice da chave. Então, partiremos para o tratamento das colisões, utilizando a função "h(k,i)=(h'(k) + i) mod m" para encontrar uma posição para a nova chave. Para isso, verificamos se o indíce dado pela função está vazio. Se não estiver, inserimos a chave e atualizamos o contador do tamanho da tabela e retornamos. De outro modo (posição ocupada), partiremos para a próxima posição e assim por diante. 
 
 ```python
 
@@ -314,7 +342,7 @@ A próxima função é utilizada para fazer a inclusão na tabela. Porém, antes
 ```
 
 
-Partindo para a função de remoção, começamos calculando o índice da chave e após isso utilizamos novamente a sondagem linear para tratamento de colisões. Porém, em vez de verificarmos se a posição está vazia, nessa sondagem, verificamos se a posição está ocupada. Se estiver, removemos a chave e atualizamos o contador, de outro modo, faremos a sondagem na próxima posição e assim por diante. Por fim, após a remoção, verificamos se a quantidade de posições ocupadas na tabela é menor ou igual a metade de sua capacidade e se sua capacidade atual é maior que 2, se for, reduzimos a tabela pela metade fazendo o table halving.
+Partindo para a função de remoção, começamos calculando o índice da chave e, após isso, utilizamos novamente a sondagem linear para tratamento de colisões. Porém, em vez de verificarmos se a posição está vazia, nessa sondagem verificamos se a posição está ocupada. Se estiver, removemos a chave e atualizamos o contador. De outro modo, faremos a sondagem na próxima posição e assim por diante. Por fim, após a remoção, verificamos se a quantidade de posições ocupadas na tabela é menor ou igual à metade de sua capacidade e se sua capacidade atual é maior que 2. Se for, reduzimos a tabela pela metade fazendo o table halving.
 
 ```python
 
@@ -332,7 +360,7 @@ Partindo para a função de remoção, começamos calculando o índice da chave 
 ```
 
 
-A função resize é escencial para conseguirmos fazer table doubling/halving. A partir dela, guardamos a tabela atual (com todos os seus elementos) e definimos a nova capacidade da tabela. Então criamos uma nova tabela vazia (com contador zerado) e, por fim, usamos um laço para reinserir os elementos guardados na nova tabela.
+A função resize é escencial para conseguirmos fazer table doubling/halving. A partir dela, guardamos a tabela atual (com todos os seus elementos) e definimos a nova capacidade da tabela. Então, criamos uma nova tabela vazia (com contador zerado) e, por fim, usamos um laço para reinserir os elementos guardados na nova tabela.
 
 
 ```python
@@ -349,7 +377,7 @@ A função resize é escencial para conseguirmos fazer table doubling/halving. A
                 self.insert(entry[0], entry[1])
 ```
 
-A função get, por sua vez, busca uma chave, percorrendo a tabela com sondagem linear. Se
+A função get, por sua vez, busca uma chave, percorrendo a tabela com sondagem linear. Primeiro, ela calcula o índice onde a chave deve estar e verifica se a posição está vazia. Se estiver, passa para a próxima, até encontrar um índice que esteja ocupado. Então, a função verifica se esse indice é igual à chave. Se sim, ela retorna a chave encontrada.
 
 ```python
 
@@ -367,7 +395,7 @@ A função get, por sua vez, busca uma chave, percorrendo a tabela com sondagem 
 ```
 
 
-As três funções seguintes, são enscesiais para que a tabela se comprote como um dicionário. É a partir dessas funções que poderemos usar os cochetes na árvore vEB sem termos problemas de sintaxe. Sem essas três funções, todos os cochetes teriam que ser substituídos por ".get()". Enquanto usamos setitem e delitem para chamar insert e delete, usamos getitem para retornar a chave encontrada em get item. 
+As três funções seguintes são enscesiais para que a tabela se comprote como um dicionário. É a partir dessas funções, que poderemos usar os colchetes na árvore vEB sem termos problemas de sintaxe. Sem essas três funções, todos os cochetes teriam que ser substituídos por ".get()". Enquanto usamos setitem e delitem para chamar insert e delete, usamos getitem para retornar a chave encontrada em get. 
 
 
 ```python
@@ -384,7 +412,10 @@ As três funções seguintes, são enscesiais para que a tabela se comprote como
 <h3>Imprimir</h3> 
 
 
-Para fazermos o processamento dos valores colocados na entrada e imprimirmos o resultado na saída, utilizaremos 3 funções.
+Para fazermos o processamento dos valores colocados na entrada e imprimirmos o resultado na saída, utilizaremos 4 funções.
+
+A função process_file recebe os valores no arquivo de entrada. Para INC, REM, SUC e PRE, chamamos suas respectivas funções da classe vEB e imprimimos os resultados no arquivo de saída.
+
 ```python
 def process_file(input_path, output_path):
     veb = vEB(2**32)
@@ -445,6 +476,9 @@ def process_file(input_path, output_path):
 
 ```
 
+A função abaixo retorna todos os elementos armazenados no cluster de índice high dentro da árvore van Emde Boas veb. Nós a utilizamos para listar todos os elementos de um cluster específico.
+
+
 ```python
 
 def collect_cluster_values(veb, high):
@@ -474,6 +508,8 @@ def format_imp(veb):
 
 ```
 
+
+A função collect_values(veb) varre recursivamente toda a árvore van Emde Boas e retorna uma lista ordenada de todos os elementos armazenados.
 
 ```python 
 
@@ -505,6 +541,8 @@ def collect_values(veb):
 
 ```
 
+
+Essa função imprime os resultados no terminal
 ```python
 if __name__ == "__main__":
     print("Iniciando o processamento do arquivo 'entrada.txt'...")
@@ -518,3 +556,9 @@ if __name__ == "__main__":
     print("Caminho absoluto esperado:", os.path.abspath("entrada.txt"))
     print("Existe?", os.path.exists("entrada.txt"))
 ```
+
+
+<h3>Referências </h3> 
+Cormen T.H [et al.]; Algoritmos: Teoria e Prática, 2009.
+https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/resources/mit6_851s12_l11/
+https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-4-notes/
