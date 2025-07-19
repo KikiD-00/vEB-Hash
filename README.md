@@ -16,6 +16,7 @@ Git instalado (opcional, mas facilita o processo)
 <h1>Trabalho de Estrutura de dados</h1>
 
 <h1>Como Rodar</h1>
+
 1. Clone o repositório
 
 
@@ -26,12 +27,12 @@ No repositório, os principais arquivos são:
 -saida.txt
 
 
- 4. Rode o código
+ 3. Rode o código
  Entre na pasta e coloque no terminal:
 
  Trabalho Estrutura de dados van emde boas/Arvore.py
 
-Insira os valores em entrada.txt e confira os resultados em saida.txt
+(Insira os valores em entrada.txt e confira os resultados em saida.txt)
 
 <h3>Contexto:</h3> 
 
